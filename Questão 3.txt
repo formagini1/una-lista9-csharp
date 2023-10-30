@@ -1,0 +1,87 @@
+using System;
+using System.Collections;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Hashtable produtos = new Hashtable();
+        Hashtable carrinho = new Hashtable();
+
+        // Adicione produtos à Hashtable de produtos
+        produtos["Produto 1"] = 10.0;
+        produtos["Produto 2"] = 15.0;
+        produtos["Produto 3"] = 20.0;
+
+        while (true)
+        {
+            Console.WriteLine("\nOpções:");
+            Console.WriteLine("1. Adicionar produto ao carrinho");
+            Console.WriteLine("2. Visualizar carrinho");
+            Console.WriteLine("3. Finalizar compra");
+            Console.WriteLine("4. Sair");
+
+            int opcao;
+            if (!int.TryParse(Console.ReadLine(), out opcao))
+            {
+                Console.WriteLine("Opção inválida. Por favor, escolha uma opção válida.");
+                continue;
+            }
+
+            switch (opcao)
+            {
+                case 1:
+                    Console.WriteLine("Produtos disponíveis para compra:");
+                    foreach (var produto in produtos.Keys)
+                    {
+                        Console.WriteLine(produto + " - R$" + produtos[produto]);
+                    }
+
+                    Console.Write("Digite o nome do produto a ser adicionado ao carrinho: ");
+                    string produtoSelecionado = Console.ReadLine();
+
+                    if (produtos.ContainsKey(produtoSelecionado))
+                    {
+                        double precoProduto = (double)produtos[produtoSelecionado];
+                        carrinho[produtoSelecionado] = precoProduto;
+                        Console.WriteLine("Produto adicionado ao carrinho.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Produto não encontrado.");
+                    }
+                    break;
+
+                case 2:
+                    Console.WriteLine("\nCarrinho de Compras:");
+                    double total = 0.0;
+                    foreach (var produto in carrinho.Keys)
+                    {
+                        Console.WriteLine(produto + " - R$" + carrinho[produto]);
+                        total += (double)carrinho[produto];
+                    }
+                    Console.WriteLine("Total a pagar: R$" + total);
+                    break;
+
+                case 3:
+                    double totalCompra = 0.0;
+                    foreach (var produto in carrinho.Keys)
+                    {
+                        totalCompra += (double)carrinho[produto];
+                    }
+                    Console.WriteLine("Total da compra: R$" + totalCompra);
+                    Console.WriteLine("Compra finalizada. Obrigado por comprar conosco!");
+                    carrinho.Clear();
+                    break;
+
+                case 4:
+                    Environment.Exit(0);
+                    break;
+
+                default:
+                    Console.WriteLine("Opção inválida. Por favor, escolha uma opção válida.");
+                    break;
+            }
+        }
+    }
+}

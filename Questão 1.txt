@@ -1,0 +1,32 @@
+
+using System;
+using System.Collections;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Hashtable cpfTelefone = new Hashtable();
+
+        for (int i = 1; i <= 5; i++)
+        {
+            Console.Write("Digite o CPF da pessoa " + i + ": ");
+            string cpf = Console.ReadLine();
+
+            Console.Write("Digite o telefone da pessoa " + i + ": ");
+            string telefone = Console.ReadLine();
+
+            cpfTelefone[cpf] = telefone;
+
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("Dados inseridos:");
+        foreach (var key in cpfTelefone.Keys)
+        {
+            string cpf = (string)key;
+            string telefone = (string)cpfTelefone[key];
+            Console.WriteLine("CPF: " + cpf + " - Telefone: " + telefone);
+        }
+    }
+}
